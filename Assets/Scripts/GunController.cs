@@ -11,11 +11,11 @@ public class GunController : MonoBehaviour
     public GameObject Bullet; // Bullet GameObject.
     public Transform GunSpawnTransform; // Transform for GunSpawn GameObject.
     public float BulletForce = 150f; // Value of force that bullet will be shot out from gun.
+    public float _firerate = .25f; // The delay, in seconds, that player has to wait until being able to fire gun again.
+    public int _maxAmmo = 6; // The magazine capacity of the gun.
 
-    int _maxAmmo = 6; // The magazine capacity of the gun.
-    int _currentAmmo = 6; // The current # of bullets the gun has currently.
-    float _firerate = .25f; // The delay, in seconds, that player has to wait until being able to fire gun again.
-    bool _canFire = true; // Checks to see if the gun is able to fire.
+    protected int _currentAmmo = 6; // The current # of bullets the gun has currently.
+    protected bool _canFire = true; // Checks to see if the gun is able to fire.
 
     //
     // Methods
@@ -41,7 +41,7 @@ public class GunController : MonoBehaviour
     }
 
     // Fires a new Bullet GameObject.
-    IEnumerator Fire()
+    protected IEnumerator Fire()
     {
         // Sets _canFire to false so that you can't fire gun again until the method finishs.
         _canFire = false;
@@ -71,8 +71,10 @@ public class GunController : MonoBehaviour
         // Delays the method for _firerate seconds, then sets _canFire to true.
         yield return new WaitForSeconds(_firerate);
         _canFire = true;
+
+        print($"{_currentAmmo}/{_maxAmmo}");
     }
 
     // Sets _currentAmmo back to _maxAmmo.
-    void Reload() => _currentAmmo = _maxAmmo;
+    protected void Reload() => _currentAmmo = _maxAmmo;
 }

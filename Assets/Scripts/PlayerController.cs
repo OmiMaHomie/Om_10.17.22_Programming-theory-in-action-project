@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     // Properties
     //
 
-    public Transform PlayerRotateTransform; // The tranform componenet of the "PlayerRotate" GameObject.
+    public Transform PlayerTransform; // The tranform componenet of the "PlayerRotate" GameObject.
     public Animator PlayerAnimator; // The animator controller for the GameObjects of the player and its children GameObjects.
     public float Sensitivity = 5f; // The value that'll modify how quickly the player rotates.
 
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         _rotationVector.y = Mathf.Clamp(_rotationVector.y, _minYRotationValue, _maxYRotationValue);
 
         // Rotates the player (via "PlayerRotate" anchor GameObject) with the rotationVector values.
-        PlayerRotateTransform.rotation = Quaternion.Euler(
+        PlayerTransform.rotation = Quaternion.Euler(
             _rotationVector.x, // Horizontal rotation
             _rotationVector.y, // Vertical rotation
             0f // z-axis locked at 0
