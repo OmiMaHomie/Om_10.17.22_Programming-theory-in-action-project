@@ -1,32 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-// Will be the script to effect the bullet's behavior in-game.
+// This script will contain the behavior for the "Bullet" GameObject.
 public class BulletBehavior : MonoBehaviour
 {
-    // Properties & Fields
-    int bulletLifetime = 3;
+    //
+    // Properties
+    //
 
+    public float BulletLifetime = 3f; // Is the maximum lifetime of bullet GameObject before despawning.
 
+    //
     // Methods
+    //
 
+    // Runs when a bullet is loaded.
     void Awake()
     {
-        DestroyBulletAfterTime();
+        StartCoroutine(DestroyBulletAfterTime());
     }
 
+    // Runs when the bullet enters the collider of any other GameObject.
     void OnTriggerEnter(Collider other)
     {
-        print($"Collided with {other.name}");
-        Destroy(gameObject);
+        Destroy(gameObject); // Destroys itself
     }
 
-    // 
-    public IEnumerator DestroyBulletAfterTime()
+    // Sets the bullet GameObject to be destroyed after bulletLifeTime seconds.
+    IEnumerator DestroyBulletAfterTime()
     {
-        yield return new WaitForSeconds(bulletLifetime);
-        print($"Bullet despawned");
+        yield return new WaitForSeconds(BulletLifetime);
         Destroy(gameObject);
     }
 }
